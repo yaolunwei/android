@@ -1,0 +1,56 @@
+apply plugin: 'com.android.library'
+apply plugin: 'com.novoda.bintray-release'
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.novoda:bintray-release:0.8.1'
+    }
+}
+
+publish {
+    userOrg = 'bigoat' //bintray注册的用户名（不是邮箱）
+    groupId = 'com.yaolunwei'
+    artifactId = 'android' //项目名称
+    publishVersion = '0.0.1' //版本号
+    desc = 'This is Android utils.' //项目描述。可空。
+    website = 'https://github.com/yaolunwei/android' //项目地址，一般填github地址。可空。
+}
+
+
+android {
+    compileSdkVersion 27
+
+
+    defaultConfig {
+        minSdkVersion 19
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:2.2.2'
+
+}
+
+// ./gradlew clean build bintrayUpload -PbintrayUser=bigoat -PbintrayKey=03eec37cffe6790b5462501e874e89e9dc70820c -PdryRun=false
